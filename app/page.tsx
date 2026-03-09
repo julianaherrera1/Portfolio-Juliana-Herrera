@@ -1,11 +1,9 @@
-import Hero from '@/sections/Hero'
-import About from '@/sections/About'
+import NavBar from "@/components/ui/NavBar";
 
 export default function Home() {
-  return(
+  return (
     <main>
-      <Hero />
-      <About />
-    </main>
+     <NavBar /> 
+    </main> 
   );
 }

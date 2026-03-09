@@ -1,13 +1,102 @@
+/* app/globals.css */
 @import "tailwindcss";
 
-@theme {
-  --color-bg: #0a0a0a;
-  --color-text: #ededed;
-  --color-muted: #9ca3af;
-  --color-accent: #6366f1;
+/* Fuente personalizada */
+:root {
+  --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-.dark {
-  --color-bg: #0a0a0a;
-  --color-text: #ededed;
+/* Paleta minimalista - Menos colores, más sofisticación */
+:root {
+  /* Fondo - Negro profundo pero suave */
+  --background: #0B0B0F;
+  --background-elevated: #121217;
+  --background-card: #1A1A22;
+  
+  /* Texto - Jerarquía clara */
+  --text-primary: #FFFFFF;
+  --text-secondary: #A0A0B0;
+  --text-tertiary: #6C6C7A;
+  
+  
+  --accent: #7c12b9;
+  --accent-subtle: rgba(115, 35, 146, 0.1);
+  
+  /* Bordes - Muy sutiles */
+  --border: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+}
+
+/* Selección más sutil */
+::selection {
+  background: var(--accent-subtle);
+  color: var(--accent);
+}
+
+/* Scrollbar minimalista */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Utilidades minimalistas */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .border-subtle {
+    border: 1px solid var(--border);
+  }
+  
+  .card-hover {
+    transition: all 0.2s ease;
+  }
+  
+  .card-hover:hover {
+    background: var(--background-elevated);
+    border-color: var(--border-strong);
+  }
+}
+
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
 }
