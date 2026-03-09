@@ -13,31 +13,32 @@ export default function NavBar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = ["About", "Skills", "Projects", "Experience", "Contact"];
+  const navItems = ["Home", "About", "Skills", "Projects", "Experience", "Contact"];
 
   return (
     <>
       <nav
         className={`
-          fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur
+          fixed top-0 w-full z-50 transition-all transition-colors duration-300
           ${
             scrolled
-              ? "bg-[var(--background-elevated)]/80 border-b border-[var(--border)] py-2"
+              ? "bg-[var(--background-elevated)]/40  border-b border-[var(--border)] py-2"
               : "bg-transparent py-2"
           }
         `}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-7xl h-22 mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            
+
             {/* Logo */}
             <Link href="/" className="flex items-center group">
               <Image
-                src="/logo/logo.png"  
+                src="/logo/logo.png"
                 alt="Logo"
                 width={120}
                 height={40}
@@ -93,6 +94,7 @@ export default function NavBar() {
             >
               {isOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
+
           </div>
         </div>
 
@@ -125,11 +127,13 @@ export default function NavBar() {
                   <MessageCircle size={20} />
                 </a>
               </div>
+
             </div>
           </div>
         )}
       </nav>
 
+      {/* Spacer */}
       <div className="h-14 md:h-16"></div>
     </>
   );
