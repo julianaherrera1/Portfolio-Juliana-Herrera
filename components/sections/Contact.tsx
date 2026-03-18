@@ -12,18 +12,23 @@ const [success, setSuccess] = useState(false);
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
-  setLoading(true);
-  setSuccess(false);
-
   const form = e.currentTarget;
   const formData = new FormData(form);
-
 
   const data = {
     name: formData.get("name"),
     email: formData.get("email"),
     message: formData.get("message"),
   };
+
+  // Validacion básica
+  if (!data.name || !data.email || !data.message) {
+  alert("Please fill all fields");
+  return;
+  }
+
+  setLoading(true);
+  setSuccess(false);
 
   try {
     const res = await fetch("/api/contact", {
@@ -39,16 +44,15 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     if (result.success) {
       setSuccess(true);
       form.reset(); // 🔹 limpia el formulario
+    }else{
+      alert("Failed to send message. Please try again later.");
     }
 
   } catch (error) {
     console.error(error);
+    alert("Something went wrong. Please try again later.");
   }
 
-   if (!data.name || !data.email || !data.message) {
-  alert("Please fill all fields");
-  return;
-}
   setLoading(false);
 };
 
