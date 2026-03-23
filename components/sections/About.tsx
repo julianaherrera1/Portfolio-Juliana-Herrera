@@ -56,7 +56,7 @@ export default function About() {
 
             {/* CTA */}
             <a
-              href="/cv.pdf"
+              href="/cv/cv - Juliana Herrera - EN.pdf"
               download
               className="inline-block mt-10 px-8 py-3 rounded-full bg-purple-500 hover:bg-purple-400 text-white font-medium transition-all duration-300 hover:-translate-y-0.5"
             >
