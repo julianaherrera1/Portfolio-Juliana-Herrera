@@ -3,58 +3,40 @@
 import { Phone, Mail, MapPin, MessageCircle, Send } from "lucide-react";
 import { Resend } from 'resend';
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { useRef } from "react";
 
 export default function Contact() {
-
+const formRef = useRef<HTMLFormElement>(null);        
 const [loading, setLoading] = useState(false);
 const [success, setSuccess] = useState(false);
 
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
+ const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const form = e.currentTarget;
-  const formData = new FormData(form);
+    if (!formRef.current) return;
 
-  const data = {
-    name: formData.get("name"),
-    email: formData.get("email"),
-    message: formData.get("message"),
-  };
+    setLoading(true);
+    setSuccess(false);
 
-  // Validacion básica
-  if (!data.name || !data.email || !data.message) {
-  alert("Please fill all fields");
-  return;
-  }
+    try {
+      await emailjs.sendForm(
+        "service_zvu4f7b",
+        "template_to7ttdf",
+        formRef.current,
+        "43eoXh9BmB6RnyfnR"
+      );
 
-  setLoading(true);
-  setSuccess(false);
-
-  try {
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    const result = await res.json();
-
-    if (result.success) {
       setSuccess(true);
-      form.reset(); // 🔹 limpia el formulario
-    }else{
-      alert("Failed to send message. Please try again later.");
+      formRef.current.reset();
+
+    } catch (error) {
+      console.error(error);
+      alert("Failed to send message. Please try again.");
     }
 
-  } catch (error) {
-    console.error(error);
-    alert("Something went wrong. Please try again later.");
-  }
-
-  setLoading(false);
-};
+    setLoading(false);
+  };
 
   return (
     <section id="contact" className="py-24 px-6 max-w-6xl mx-auto">
@@ -82,7 +64,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
               Send me a message
             </h3>
 
-            <form className="space-y-5" onSubmit={handleSubmit}>
+            <form ref={formRef} className="space-y-5" onSubmit={handleSubmit}>
 
               <div>
                 <label className="block text-sm text-neutral-500 mb-2">
