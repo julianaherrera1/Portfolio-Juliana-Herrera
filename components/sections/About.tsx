@@ -71,7 +71,7 @@ export default function About() {
             <div className="space-y-6 text-[var(--text-secondary)] text-sm md:text-base">
 
               <div>
-                <span className="text-purple-400 font-medium">Age:</span> 21
+                <span className="text-purple-400 font-medium">Age:</span> 22
               </div>
 
               <div>
